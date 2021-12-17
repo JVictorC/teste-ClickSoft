@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import useDataUser from '../../../hooks/useDataUser';
+import useDataUser from '../../hooks/useDataUser';
 import Loading from '../Loading';
 import { HeaderStyled } from './styledHeader';
 
