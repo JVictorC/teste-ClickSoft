@@ -1,7 +1,12 @@
-import '../styles/globals.css'
+import { DataUserProvider } from '../context/dataUserProvider';
+import '../styles/globals.css';
 
 function MyApp({ Component, pageProps }) {
-  return <Component {...pageProps} />
+  return (
+    <DataUserProvider>
+      <Component {...pageProps} />
+    </DataUserProvider>
+  );
 }
 
-export default MyApp
+export default MyApp;
