@@ -29,9 +29,11 @@ export const HeaderStyled = styled.header`
     justify-content: center;
     align-items: center;
     text-align: center;
+    margin: 15px 0;
 
     @media (min-width: 800px) {
       flex-direction: row;
+      margin: 0;
     }
   }
 

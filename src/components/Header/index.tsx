@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import useDataUser from '../../hooks/useDataUser';
 import Loading from '../Loading';
+import Drawer from './components/Drawer';
 import { HeaderStyled } from './styledHeader';
 
 export default function Header() {
@@ -11,7 +12,6 @@ export default function Header() {
     e.preventDefault()
     getUserData(DataForm);
   }
-
   return (
     <HeaderStyled>
       <form className="search-form" onSubmit={handleSubmitForm}>
