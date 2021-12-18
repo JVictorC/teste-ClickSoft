@@ -1,16 +1,9 @@
 import axios from 'axios';
-import responseApiDataUserGitHub from '../models/dataUser';
+import { dataUserGitHub } from '../models/dataUser';
 
 export default async function getDataGitHubByName(name: string) {
-  try {
-    const dataUser = await axios.get<responseApiDataUserGitHub>(
-      `https://api.github.com/users/${name}`
-    );
-    return dataUser.data;
-  } catch (error) {
-    return {
-      data: {},
-      status: 404,
-    };
-  }
+  const dataUser = await axios.get<dataUserGitHub>(
+    `https://api.github.com/users/${name}`
+  );
+  return dataUser.data;
 }

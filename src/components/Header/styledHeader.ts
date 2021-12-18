@@ -22,6 +22,8 @@ export const HeaderStyled = styled.header`
   label {
     flex: 1;
     width: 80%;
+    color: ${mainColor};
+    font-weight: 600;
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -38,6 +40,7 @@ export const HeaderStyled = styled.header`
     width: 100%;
     padding: 15px 10px;
     border-radius: 15px;
+    border-color: ${mainColor};
     font-size: 15px;
     @media (min-width: 1200px) {
       width: 60%;

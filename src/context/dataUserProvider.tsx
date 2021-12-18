@@ -1,14 +1,16 @@
+import notFound from '@models/notFound';
 import React, {
   createContext,
   Dispatch,
   SetStateAction,
   useState,
 } from 'react';
-import responseApiDataUserGitHub from '../models/dataUser';
+import useHistoryUser from 'src/hooks/useHistoryUsers';
+import responseApiDataUserGitHub, { dataUserGitHub } from '../models/dataUser';
 import getDataGitHubByName from '../services/getDataGitHubByName';
 
 interface DataUserCtx {
-  dataUser?: responseApiDataUserGitHub;
+  dataUser?: dataUserGitHub;
   isLoading?: boolean;
   getUserData?: (name: string) => void;
 }
@@ -17,20 +19,26 @@ const DataUserContext = createContext<DataUserCtx>({});
 
 export function DataUserProvider(props) {
   const [isLoading, setLoading] = useState<boolean>(false);
-  const [dataUser, setDataUser] = useState<responseApiDataUserGitHub>({});
+  const [dataUser, setDataUser] = useState<dataUserGitHub>();
 
-  async function getUserData(name:string) {
+  const { setNewUserInHistory } = useHistoryUser();
+
+  async function getUserData(name: string) {
     setLoading(true);
-    const data = await getDataGitHubByName(name);
-    setDataUser(data);
+    try {
+      const data = await getDataGitHubByName(name);
+      setDataUser(data);
+      setNewUserInHistory(data);
+    } catch (error) {
+      alert('O Nome tem que ser um nome valido');
+    }
     setLoading(false);
   }
-
 
   const valueProvider: DataUserCtx = {
     dataUser,
     isLoading,
-    getUserData
+    getUserData,
   };
 
   return (
