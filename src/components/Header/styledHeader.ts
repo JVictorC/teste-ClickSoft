@@ -1,3 +1,4 @@
+import { AiOutlineMenu } from 'react-icons/ai';
 import styled from 'styled-components';
 
 const mainColor = '#553f8f';
@@ -5,6 +6,7 @@ const mainColor = '#553f8f';
 export const HeaderStyled = styled.header`
   display: flex;
   justify-content: center;
+  align-items: center;
   height: 150px;
 
   .search-form {
@@ -21,7 +23,7 @@ export const HeaderStyled = styled.header`
 
   label {
     flex: 1;
-    width: 80%;
+    width: 90%;
     color: ${mainColor};
     font-weight: 600;
     display: flex;
@@ -30,6 +32,31 @@ export const HeaderStyled = styled.header`
     align-items: center;
     text-align: center;
     margin: 15px 0;
+
+    .menu-art {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+
+      @media (min-width: 800px) {
+        width: 40%;
+      }
+
+      @media (min-width: 1200px) {
+        width: 20%;
+      }
+    }
+
+    .menu {
+      font-size: 30px;
+      margin: 0 15px;
+      cursor: pointer;
+      transition: 0.5s;
+
+      :hover {
+        transform: scale(1.08);
+      }
+    }
 
     @media (min-width: 800px) {
       flex-direction: row;
@@ -51,7 +78,7 @@ export const HeaderStyled = styled.header`
 
   .search-button {
     padding: 10px 10px;
-    width: 80%;
+    width: 90%;
     border-radius: 15px;
     background-color: ${mainColor};
     color: white;

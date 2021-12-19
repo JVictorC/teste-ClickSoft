@@ -16,6 +16,39 @@ interface HistorySearchUsersProps {
   children: React.ReactNode;
 }
 
+interface dataUserGitHubLocal extends dataUserGitHub{
+  qty: number;
+}
+
+function padronizarObj (obj: dataUserGitHub) {
+  const dataLocal = JSON.parse(localStorage.getItem('historyUsers')) as dataUserGitHubLocal[];
+
+  if(!dataLocal) {
+    return {
+      qty: 1,
+      ... obj
+    }
+  }
+
+  const sameDataInLocal = dataLocal.filter((userLocal) => userLocal.id === obj.id)[0];
+
+  if(sameDataInLocal) {
+    console.log('a');
+    const teste = {
+      qty: sameDataInLocal.qty += 1,
+      ...sameDataInLocal
+    }
+    console.log(teste);
+  }
+
+  return {
+    qty: 1,
+    ... obj
+  }
+  
+
+}
+
 export function HistorySearchUsers(props: HistorySearchUsersProps) {
   const [historyUsers, setHistoryUsers] = useState<dataUserGitHub[]>([]);
 
