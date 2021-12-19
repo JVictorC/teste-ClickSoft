@@ -1,3 +1,4 @@
+import Router, { useRouter } from 'next/router';
 import React, { useState } from 'react';
 import useDataUser from '../../hooks/useDataUser';
 import Loading from '../Loading';
@@ -6,10 +7,13 @@ import { HeaderStyled } from './styledHeader';
 
 export default function Header() {
   const [DataForm, setDataForm] = useState<string>('');
-  const { isLoading ,getUserData } = useDataUser();
+  const { isLoading , getUserData } = useDataUser();
+  const route = useRouter();
 
   function handleSubmitForm(e: React.FormEvent) {
-    e.preventDefault()
+    e.preventDefault();
+    Router.push('/');
+    setDataForm('');
     getUserData(DataForm);
   }
   return (
@@ -18,6 +22,7 @@ export default function Header() {
         <label htmlFor="search-input">
           <p>Pesquisar Usuario Pelo Nome:</p>
           <input
+          value={DataForm}
             type="text"
             id="search-input"
             placeholder="Pesquisar usúario"

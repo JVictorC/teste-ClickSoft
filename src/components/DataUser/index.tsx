@@ -8,17 +8,21 @@ export default function DataUser() {
   const { dataUser } = useDataUser();
   const router = useRouter();
   return (
-    <DataUserStyled onClick={() => router.push(`/detailsUsers/${dataUser.id}`)}>
+    <DataUserStyled
+      onClick={() =>
+        router.push(`/detailsUsers/${dataUser.login}`)
+      }
+    >
       <Image
         src={dataUser.avatar_url}
         height={250}
         width={250}
-        alt={`Image do usuario ${dataUser.login}`}
+        alt={`Image do usuário ${dataUser.login}`}
       />
       <article>
-        <h1>Nome: {dataUser.name}</h1>
-        <h5>Login: {dataUser.login}</h5>
-        <h6>Região: {dataUser.location}</h6>
+        <h1>{dataUser.name}</h1>
+        <h1>{dataUser.location}</h1>
+        <h1>{dataUser.login}</h1>
       </article>
     </DataUserStyled>
   );

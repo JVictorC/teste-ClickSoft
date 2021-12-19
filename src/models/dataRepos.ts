@@ -4,7 +4,8 @@ export default interface responseApiRespoUserGitHub {
 }
 
 export interface respoUserGitHub {
-  url: string;
+  html_url: string;
+  name: string;
   visibility: string;
   id: number;
   description: string;

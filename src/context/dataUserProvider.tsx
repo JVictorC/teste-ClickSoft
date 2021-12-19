@@ -29,10 +29,9 @@ export function DataUserProvider(props) {
       const data = await getDataGitHubByName(name);
       setDataUser(data);
       setNewUserInHistory(data);
-    } catch (error) {
-      alert('O Nome tem que ser um nome valido');
+    } finally {
+      setLoading(false);
     }
-    setLoading(false);
   }
 
   const valueProvider: DataUserCtx = {
