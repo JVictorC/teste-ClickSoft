@@ -43,7 +43,7 @@ export const HeaderStyled = styled.header`
       }
 
       @media (min-width: 1200px) {
-        width: 20%;
+        width: 30%;
       }
     }
 
