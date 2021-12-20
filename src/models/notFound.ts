@@ -1,4 +1,4 @@
 export default interface notFound {
-  data: {},
+  msg: string,
   status: number
 }

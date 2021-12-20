@@ -1,5 +1,6 @@
 import { dataUserGitHub } from '@models/dataUser';
 import React, { createContext, useEffect, useState } from 'react';
+import useDataUser from 'src/hooks/useDataUser';
 
 interface HistoryUsersCtx {
   historyUsers?: dataInLocal[];
@@ -22,8 +23,11 @@ interface dataInLocal extends dataUserGitHub {
 
 export function HistorySearchUsers(props: HistorySearchUsersProps) {
   const [historyUsers, setHistoryUsers] = useState<dataInLocal[]>([]);
+  const { notFound } = useDataUser();
 
   function setNewUserInHistory(newUser: dataUserGitHub) {
+    console.log(notFound);
+    console.log('dasdas');
     if (!newUser) return;
     const newUserWithId = {
       idLocal: Math.floor(Math.random() * 100),
