@@ -1,12 +1,12 @@
 import { dataUserGitHub } from '@models/dataUser';
 import React, { createContext, useEffect, useState } from 'react';
 
-
 interface HistoryUsersCtx {
-  historyUsers?: dataUserGitHub[];
+  historyUsers?: dataInLocal[];
   setNewUserInHistory?: (newUser: dataUserGitHub) => void;
+  removeAItemInLocal?: (idForRemove: number) => void;
+  clearHistory?: () => void;
 }
-
 
 const contextHistorySearchUsersProps = createContext<HistoryUsersCtx>({});
 
@@ -16,51 +16,28 @@ interface HistorySearchUsersProps {
   children: React.ReactNode;
 }
 
-interface dataUserGitHubLocal extends dataUserGitHub{
-  qty: number;
-}
-
-function padronizarObj (obj: dataUserGitHub) {
-  const dataLocal = JSON.parse(localStorage.getItem('historyUsers')) as dataUserGitHubLocal[];
-
-  if(!dataLocal) {
-    return {
-      qty: 1,
-      ... obj
-    }
-  }
-
-  const sameDataInLocal = dataLocal.filter((userLocal) => userLocal.id === obj.id)[0];
-
-  if(sameDataInLocal) {
-    console.log('a');
-    const teste = {
-      qty: sameDataInLocal.qty += 1,
-      ...sameDataInLocal
-    }
-    console.log(teste);
-  }
-
-  return {
-    qty: 1,
-    ... obj
-  }
-  
-
+interface dataInLocal extends dataUserGitHub {
+  idLocal: number;
 }
 
 export function HistorySearchUsers(props: HistorySearchUsersProps) {
-  const [historyUsers, setHistoryUsers] = useState<dataUserGitHub[]>([]);
+  const [historyUsers, setHistoryUsers] = useState<dataInLocal[]>([]);
 
   function setNewUserInHistory(newUser: dataUserGitHub) {
+    if (!newUser) return;
+    const newUserWithId = {
+      idLocal: Math.floor(Math.random() * 100),
+      ...newUser,
+    };
+
     try {
       const localHistory = JSON.parse(localStorage.getItem('historyUsers'));
-      localHistory.push(newUser);
+      localHistory.push(newUserWithId);
       localStorage.setItem('historyUsers', JSON.stringify(localHistory));
-      setHistoryUsers(prevState => [...prevState, newUser])
+      setHistoryUsers((prevState) => [...prevState, newUserWithId]);
     } catch (error) {
-      localStorage.setItem('historyUsers', JSON.stringify([newUser]));
-      setHistoryUsers(prevState => [...prevState, newUser])
+      localStorage.setItem('historyUsers', JSON.stringify([newUserWithId]));
+      setHistoryUsers((prevState) => [...prevState, newUserWithId]);
     }
   }
 
@@ -69,13 +46,33 @@ export function HistorySearchUsers(props: HistorySearchUsersProps) {
     setHistoryUsers(localHistory || []);
   }
 
+  function removeAItemInLocal(idForRemove: number) {
+    const dataInLocal = JSON.parse(
+      localStorage.getItem('historyUsers')
+    ) as dataInLocal[];
+
+    const dataFiltered = dataInLocal.filter(
+      (user) => user.idLocal !== idForRemove
+    );
+
+    localStorage.setItem('historyUsers', JSON.stringify(dataFiltered));
+    setHistoryUsers(dataFiltered);
+  }
+
+  function clearHistory () {
+    setHistoryUsers([]);
+    localStorage.removeItem('historyUsers')
+  }
+
   useEffect(() => {
     getDataInLocal();
   }, []);
 
   const valueProvider: HistoryUsersCtx = {
     historyUsers,
-    setNewUserInHistory
+    setNewUserInHistory,
+    removeAItemInLocal,
+    clearHistory,
   };
 
   return <Provider value={valueProvider}>{props.children}</Provider>;
