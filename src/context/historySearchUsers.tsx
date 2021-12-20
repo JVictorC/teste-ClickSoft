@@ -31,8 +31,14 @@ export function HistorySearchUsers(props: HistorySearchUsersProps) {
     };
 
     try {
-      const localHistory = JSON.parse(localStorage.getItem('historyUsers'));
+      const localHistory = JSON.parse(
+        localStorage.getItem('historyUsers')
+      ) as dataInLocal[];
+
+      if (localHistory.some((user) => user.id === newUserWithId.id)) return;
+
       localHistory.push(newUserWithId);
+      
       localStorage.setItem('historyUsers', JSON.stringify(localHistory));
       setHistoryUsers((prevState) => [...prevState, newUserWithId]);
     } catch (error) {
@@ -59,9 +65,9 @@ export function HistorySearchUsers(props: HistorySearchUsersProps) {
     setHistoryUsers(dataFiltered);
   }
 
-  function clearHistory () {
+  function clearHistory() {
     setHistoryUsers([]);
-    localStorage.removeItem('historyUsers')
+    localStorage.removeItem('historyUsers');
   }
 
   useEffect(() => {

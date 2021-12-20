@@ -54,7 +54,6 @@ export const ListUsersHistory = styled.ul`
 export const DataUserStyled = styled.li`
   display: flex;
   position: relative;
-  cursor: pointer;
   flex-direction: column;
   align-items: center;
   justify-content: center;
@@ -64,16 +63,36 @@ export const DataUserStyled = styled.li`
   border-radius: 15px;
   transition: 0.5s;
 
+
+  .redirect-user {
+    border: none;
+    background-color: #33adab;
+    color: white;
+    padding: 10px 40px;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: .5s;
+
+    :hover {
+      transform: scale(1.05)
+    }
+  }
+
   img {
     border-radius: 15px;
   }
 
   .excluir {
+    cursor: pointer;
     position: absolute;
     top: 15px;
     right: 30px;
     font-size: 25px;
-    color: red;
+    color: white;
+    border-radius: 5px;
+    background-color: red;
+    width: 35px;
+    height: 35px;
   }
 
   :hover {

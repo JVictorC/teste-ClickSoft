@@ -56,7 +56,6 @@ export default function DrawerComponent(props: DrawerProps) {
         ((event as React.KeyboardEvent).key === 'Tab' ||
           (event as React.KeyboardEvent).key === 'Shift')
       ) {
-        console.log('a');
         return;
       }
       props.setShowModal(open);
@@ -64,7 +63,7 @@ export default function DrawerComponent(props: DrawerProps) {
 
     const handleClickDirect = (action: 'home' | 'history') => {
       if(action ===  'history') {
-        router.push('history/users');
+        router.push('/history/users');
       } else {
         router.push('/');
         getUserData('')

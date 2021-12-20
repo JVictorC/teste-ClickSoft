@@ -5,17 +5,25 @@ import { useRouter } from 'next/router';
 import React, { useEffect, useState } from 'react';
 import useDataUser from 'src/hooks/useDataUser';
 import getReposByName from 'src/services/getResposByName';
-import { DetailsUserStyled, DataUserStyled, RepositoryList, ListRepositories, Repository } from './detailsUserStyled';
-import {AiFillGithub} from 'react-icons/ai';
-
+import {
+  DetailsUserStyled,
+  DataUserStyled,
+  RepositoryList,
+  ListRepositories,
+  Repository,
+} from './detailsUserStyled';
+import { AiFillGithub } from 'react-icons/ai';
 
 export default function DetailsUser() {
-  const { dataUser } = useDataUser();
+  const { dataUser, getUserData } = useDataUser();
   const [repos, setRepos] = useState<respoUserGitHub[]>([]);
   const route = useRouter();
 
   useEffect(() => {
-    console.log(route);
+    const name = route.query.loginUser as string;
+    if (name) {
+      getUserData(name);
+    }
     if (!dataUser) {
       route.push('/');
     }
@@ -26,7 +34,7 @@ export default function DetailsUser() {
 
   return (
     <DetailsUserStyled>
-      <h1 className='title'>Details User</h1>
+      <h1 className="title">Details User</h1>
 
       <DataUserStyled>
         <article>
@@ -43,11 +51,12 @@ export default function DetailsUser() {
           <p>Bio: {dataUser?.bio}</p>
           <p>Company: {dataUser?.company}</p>
         </article>
-
       </DataUserStyled>
 
       <RepositoryList>
-        <h2 className='title'>{repos.length} Repositórios Encontrados do usuário</h2>
+        <h2 className="title">
+          {repos.length} Repositórios Encontrados do usuário
+        </h2>
         <ListRepositories>
           {repos.map((repo) => (
             <Repository key={repo.id}>

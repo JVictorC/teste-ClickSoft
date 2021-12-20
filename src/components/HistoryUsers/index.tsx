@@ -3,15 +3,23 @@ import {
   DataUserStyled,
   ListUsersHistory,
 } from '@components/HistoryUsers/HistoryUsersStyled';
+import { handleBreakpoints } from '@mui/system';
 import { useRouter } from 'next/router';
 import React from 'react';
 import { AiOutlineClear, AiOutlineClose } from 'react-icons/ai';
+import useDataUser from 'src/hooks/useDataUser';
 import useHistoryUser from 'src/hooks/useHistoryUsers';
 import { HistoryUsersStyled } from './HistoryUsersStyled';
 
 export default function HistoryUsers() {
   const { historyUsers, removeAItemInLocal, clearHistory } = useHistoryUser();
+  const { getUserData } = useDataUser();
   const router = useRouter();
+
+  const redirectUserForDetails = (loginUser: string) => {
+    getUserData(loginUser);
+    router.push(`/detailsUsers/${loginUser}`);
+  };
 
   return (
     <HistoryUsersStyled>
@@ -26,10 +34,7 @@ export default function HistoryUsers() {
       </h3>
       <ListUsersHistory>
         {historyUsers.map((user) => (
-          <DataUserStyled
-            key={user?.id}
-            onClick={() => router.push(`/detailsUsers/${user?.login}`)}
-          >
+          <DataUserStyled key={user?.idLocal}>
             <AiOutlineClose
               className="excluir"
               onClick={() => removeAItemInLocal(user?.idLocal)}
@@ -47,6 +52,12 @@ export default function HistoryUsers() {
               <p>Região: {user?.location}</p>
               <p>Company: {user?.company}</p>
             </article>
+            <button
+              className="redirect-user"
+              onClick={() => redirectUserForDetails(user?.login)}
+            >
+              Ver Detalhes
+            </button>
           </DataUserStyled>
         ))}
       </ListUsersHistory>
