@@ -5,7 +5,7 @@ import { dataUserGitHub } from '../models/dataUser';
 import getDataGitHubByName from '../services/getDataGitHubByName';
 
 interface DataUserCtx {
-  dataUser?: dataUserGitHub | notFound;
+  dataUser?: dataUserGitHub;
   isLoading?: boolean;
   getUserData?: (name: string) => void;
   notFound?: boolean

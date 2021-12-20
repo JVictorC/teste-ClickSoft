@@ -62,6 +62,11 @@ export default function DetailsUser() {
             <Repository key={repo.id}>
               <h3>Nome: {repo.name}</h3>
               <p>Visibilidade: {repo.visibility}</p>
+              <p>Criado em: {new Date(repo.created_at).toLocaleDateString('pt-BR', {timeZone: 'UTC'})}</p>
+              <p>Ultima Att: {new Date(repo.pushed_at).toLocaleDateString('pt-BR', {timeZone: 'UTC'})}</p>
+              {
+                repo.language && <p>Linguagem Uti: {repo.language}</p>
+              }
               {repo.description && <p>Descrição: {repo.description}</p>}
               <p>Branch Principal: {repo.default_branch}</p>
               <a href={repo.html_url} target="_blank" rel="noreferrer">

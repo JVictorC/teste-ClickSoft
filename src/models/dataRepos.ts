@@ -10,4 +10,7 @@ export interface respoUserGitHub {
   id: number;
   description: string;
   default_branch: string;
+  language: string;
+  created_at: Date;
+  pushed_at: Date;
 }
